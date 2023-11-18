@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<h1 class="fs-2">
+    Dozent/in Hinzufügen
+</h1>
+
+<form action="/dozierende/hinzufuegen" method="post">
+    <div class="row mb-3">
+        <label for="first_name" class="col-sm-1 col-form-label">Vorname</label>
+        <div class="col-sm-4">
+            <input type="text" name="first_name" placeholder="Bitte gib einen Vornamen ein" autofocus required
+                autocomplete="off" class="form-control" id="first_name">
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label for="last_name" class="col-sm-1 col-form-label">Nachname</label>
+        <div class="col-sm-4">
+            <input type="text" name="last_name" placeholder="Bitte gib einen Vornamen ein" required autocomplete="off"
+                class="form-control" id="last_name">
+        </div>
+    </div>
+
+    <input type="submit" name="save" value="Speichern" class="btn btn-outline-secondary">
+    <input type="submit" name="discard" value="Abbrechen" formnovalidate class="btn btn-outline-secondary">
+</form>
+{% endblock %}

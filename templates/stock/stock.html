@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<h1 class="fs-2">
+    Lager
+</h1>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Material</th>
+            <th>Bestand</th>
+            <th>Meldebestand</th>
+            <th>Bestellnummer</th>
+            <th>Fach</th>
+            <th>Anmerkung</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% if materials|length != 0 %}
+        {% for material in materials %}
+        {% if material.amount == 0 %}
+        <tr class="table-danger">
+            {% elif material.amount <= material.report %} <tr class="table-warning">
+                {% else %}
+        <tr>
+            {% endif %}
+            <td>{{ material.material }}</td>
+            <td>{{ material.amount }}</td>
+            <td>{{ material.report }}</td>
+            <td>{{ material.order_number }}</td>
+            <td>{{ material.storage_location }}</td>
+            <td>{% if material.comment|length != 0 %}{{ material.comment }}{% else %}-{% endif %}</td>
+            <td>
+                <form action="/lager" method="post">
+                    <input type="hidden" name="delete" value="{{ material.material_id}}">
+                    <input type="submit" name="delete" value="Löschen" class="btn btn-outline-danger">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+        {% endif %}
+    </tbody>
+</table>
+
+<form action="/lager" method="post">
+    <input type="submit" name="edit" value="Bearbeiten" class="btn btn-outline-secondary" {% if materials|length==0
+        %}disabled{% endif %}>
+    <input type="submit" name="add" value="Hinzufügen" class="btn btn-outline-secondary">
+</form>
+{% endblock %}

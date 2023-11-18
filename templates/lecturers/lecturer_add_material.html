@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<h1 class="fs-2">
+    {{ lecturer.last_name }}, {{ lecturer.first_name }}: {{ course.course }} - Hinzufügen
+</h1>
+
+<form action="/dozierende/{{ lecturer.last_name }}_{{ lecturer.first_name }}/{{ course.course }}/hinzufuegen"
+    method="post">
+    <div class="row mb-3">
+        <label for="material" class="col-sm-1 col-form-label">Material</label>
+        <div class="col-sm-4">
+            <select name="material" required class="form-select" id="material">
+                <option value="" selected disabled>Bitte wähle ein Material</option>
+                {% for material in materials %}
+                <option value="{{ material.material_id }}">
+                    {{ material.material }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label for="requirement" class="col-sm-1 col-form-label">Bedarf</label>
+        <div class="col-sm-4">
+            <input type="number" name="requirement" min="1" placeholder="Bitte wähle einen Bedarf" required
+                class="form-control" id="requirement">
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label for="static" class="col-sm-1 col-form-label">Menge</label>
+        <div class="col-sm-4">
+            <div class="form-check" id="static">
+                <input class="form-check-input" id="is_static" type="radio" name="is_static" value="0" checked>
+                <label class="form-check-label" for="is_static">
+                    Pro Teilnehmer
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" id="is_not_static" type="radio" name="is_static" value="1">
+                <label class="form-check-label" for="is_not_static">
+                    Pro Kurs
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <input type="submit" name="save" value="Speichern" class="btn btn-outline-secondary">
+    <input type="submit" name="discard" value="Abbrechen" formnovalidate class="btn btn-outline-secondary">
+</form>
+{% endblock %}

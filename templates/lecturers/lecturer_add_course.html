@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<h1 class="fs-2">
+    {{ lecturer.last_name }}, {{ lecturer.first_name }} - Hinzufügen
+</h1>
+
+<form action="/dozierende/{{ lecturer.last_name }}_{{ lecturer.first_name }}/hinzufuegen" method="post">
+    <div class="row mb-3">
+        <label for="course" class="col-sm-1 col-form-label">Kurs</label>
+        <div class="col-sm-4">
+            <select name="course" required class="form-select" id="material">
+                <option value="" selected disabled>Bitte wähle einen Kurs</option>
+                {% for course in courses %}
+                <option value="{{ course.course_id }}">
+                    {{ course.course }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <input type="submit" name="save" value="Speichern" class="btn btn-outline-secondary">
+    <input type="submit" name="discard" value="Abbrechen" formnovalidate class="btn btn-outline-secondary">
+</form>
+{% endblock %}

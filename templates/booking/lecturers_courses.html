@@ -1,0 +1,6 @@
+<option value="" selected disabled>Bitte wähle einen Kurs</option>
+{% for course in courses %}
+<option value="{{ course.course_id }}">
+    {{ course.course }}
+</option>
+{% endfor %}

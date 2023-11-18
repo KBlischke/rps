@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<h1 class="fs-2">
+    {{ lecturer.last_name }}, {{ lecturer.first_name }}: {{ course.course }} - Bearbeiten
+
+    <form action="/dozierende/{{ lecturer.last_name }}_{{ lecturer.first_name }}/{{ course.course }}/bearbeiten"
+        method="post">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Material</th>
+                    <th>Bedarf</th>
+                    <th>Menge</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <input type="hidden" name="course" value="{{ course.course_id }}">
+                {% for requirement in requirements %}
+                {% if requirement.course_id == course.course_id %}
+                <tr>
+                    <td>
+                        <input type="text" readonly class="form-control-plaintext"
+                            name="{{ requirement.material_id }}_material" value="{{ requirement.material_id }}">
+                    </td>
+
+                    <td>
+                        <input type="number" name="{{ requirement.material_id }}_requirement" min="0"
+                            value="{{ requirement.requirement }}" required class="form-control">
+                    </td>
+
+                    <td>
+                        <div class="form-check">
+                            <input class="form-check-input" id="{{ requirement.material_id }}_is_static" type="radio"
+                                name="{{ requirement.material_id }}_is_static" value="0" {% if requirement.is_static==0
+                                %}checked{% endif %}>
+                            <label class="form-check-label" for="{{ requirement.material_id }}_is_static">
+                                Pro Teilnehmer
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" id="{{ requirement.material_id }}_is_not_static"
+                                type="radio" name="{{ requirement.material_id }}_is_static" value="1" {% if
+                                requirement.is_static==1 %}checked{% endif %}>
+                            <label class="form-check-label" for="{{ requirement.material_id }}_is_not_static">
+                                Pro Kurs
+                            </label>
+                        </div>
+                    </td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <input type="submit" name="save" value="Speichern" class="btn btn-outline-secondary">
+        <input type="submit" name="discard" value="Abbrechen" formnovalidate class="btn btn-outline-secondary">
+    </form>
+    {% endblock %}

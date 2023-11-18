@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<h1 class="fs-2">
+    Kursbuchung
+</h1>
+
+<form action="/buchen" method="post">
+    <div class="row mb-3">
+        <label for="lecturer" class="col-sm-1 col-form-label">Dozent/in</label>
+        <div class="col-sm-4">
+            <select name="lecturer" required class="form-select" id="lecturer">
+                <option value="" selected disabled>Bitte wähle eine/n Dozent/in</option>
+                {% for lecturer in lecturers %}
+                <option value="{{ lecturer.lecturer_id }}">
+                    {{ lecturer.last_name }}, {{ lecturer.first_name }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label for="course" class="col-sm-1 col-form-label">Kurs</label>
+        <div class="col-sm-4">
+            <select name="course" required class="form-select" id="course">
+                <option value="" selected disabled>Bitte wähle einen Kurs</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label for="attendents" class="col-sm-1 col-form-label">Teilnehmende</label>
+        <div class="col-sm-4">
+            <input type="number" name="attendents" min="1" placeholder="Bitte wähle eine Teilnehmendenzahl" required
+                class="form-control" id="attendents">
+        </div>
+    </div>
+
+    <input type="submit" value="Buchen" class="btn btn-outline-secondary">
+</form>
+{% endblock %}

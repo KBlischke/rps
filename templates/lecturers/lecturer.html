@@ -1,0 +1,95 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<h1 class="fs-2">
+    {{ lecturer.last_name }}, {{ lecturer.first_name }}
+</h1>
+
+{% set has_courses = {'bool': false} %}
+
+{% for course in courses %}
+{% if course.lecturer_id == lecturer.lecturer_id %}
+
+{% if has_courses.update({'bool': true}) %}
+{% endif %}
+
+<h2 class="fs-3">
+    {{ course.course }}
+</h2>
+
+<div class="mb-3 row">
+    <label for="course_comment" class="col-sm-2 col-form-label">Anmerkung zum Kurs:</label>
+    <div class="col-sm-6">
+        <input type="text" readonly class="form-control-plaintext" id="course_comment" value="{{ course.comment }}">
+    </div>
+</div>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Material</th>
+            <th>Bedarf</th>
+            <th>Menge</th>
+            <th>Bestellnummer</th>
+            <th>Fach</th>
+            <th>Anmerkung</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% set has_requirements = {'bool': false} %}
+        {% for requirement in requirements %}
+        {% if requirement.course_id == course.course_id %}
+        <tr>
+            <td>{{ requirement.material }}</td>
+            <td>{{ requirement.requirement }}</td>
+            <td>{% if requirement.is_static == 0 %}Pro Teilnehmer{% else %}Pro Kurs{% endif %}</td>
+            <td>{{ requirement.order_number }}</td>
+            <td>{{ requirement.storage_location }}</td>
+            <td>{% if requirement.material_comment|length != 0 %}{{ requirement.material_comment }}{% else %}-{% endif
+                %}</td>
+            <td>
+                <form action="/dozierende/{{ lecturer.last_name }}_{{ lecturer.first_name }}" method="post">
+                    <input type="hidden" name="delete_requirement" value="{{ requirement.requirement_id}}">
+                    <input type="submit" name="delete_requirement" value="Material Entfernen"
+                        class="btn btn-outline-danger">
+                </form>
+            </td>
+        </tr>
+
+        {% if has_requirements.update({'bool': true}) %}
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+        {% if not has_requirements['bool'] %}
+        <tr>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+        {% endif %}
+    </tbody>
+</table>
+
+<form action="/dozierende/{{ lecturer.last_name }}_{{ lecturer.first_name }}" method="post" class="mb-4 row">
+    <input type="hidden" name="course" value="{{ course.course }}">
+    <input type="submit" name="edit" value="Bedarf Anpassen" class="btn btn-outline-secondary col-sm-2" {% if not
+        has_requirements.bool %}disabled{% endif %}>
+    <input type="submit" name="add" value="Material hinzufügen" class="btn btn-outline-secondary col-sm-2">
+    <input type="submit" name="delete" value="Kurs Entfernen" class="btn btn-outline-danger col-sm-2">
+</form>
+{% endif %}
+{% endfor %}
+
+{% if not has_courses.bool %}Keine Kurse vorhanden{% endif %}
+
+<form action="/dozierende/{{ lecturer.last_name }}_{{ lecturer.first_name }}" method="post">
+    <input type="submit" name="add_course" value="Hinzufügen" class="btn btn-outline-secondary" id="extra_button">
+    <input type="submit" name="delete_lecturer" value="Löschen" class="btn btn-outline-danger" id="extra_button">
+</form>
+{% endblock %}

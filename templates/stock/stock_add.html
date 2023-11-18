@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<h1 class="fs-2">
+    Lager - Hinzufügen
+</h1>
+
+<form action="/lager/hinzufuegen" method="post">
+    <div class="row mb-3">
+        <label for="material" class="col-sm-1 col-form-label">Material</label>
+        <div class="col-sm-4">
+            <input type="text" name="material" placeholder="Bitte gib ein Material ein" autofocus required
+                autocomplete="off" class="form-control" id="material">
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label for="amount" class="col-sm-1 col-form-label">Bestand</label>
+        <div class="col-sm-4">
+            <input type="number" name="amount" min="0" placeholder="Bitte wähle einen Bestand" required
+                class="form-control" id="amount">
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label for="report" class="col-sm-1 col-form-label">Meldebestand</label>
+        <div class="col-sm-4">
+            <input type="number" name="report" min="0" placeholder="Bitte wähle einen Meldebestand" required
+                class="form-control" id="report">
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label for="order_number" class="col-sm-1 col-form-label">Bestellnummer</label>
+        <div class="col-sm-4">
+            <input type="text" name="order_number" placeholder="Bitte gib eine Bestellnummer ein" required
+                autocomplete="off" class="form-control" id="order_number">
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label for="storage_location" class="col-sm-1 col-form-label">Fach</label>
+        <div class="col-sm-4">
+            <input type="text" name="storage_location" placeholder="Bitte gib ein Fach ein" required autocomplete="off"
+                class="form-control" id="storage_location">
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label for="comment" class="col-sm-1 col-form-label">Anmerkung</label>
+        <div class="col-sm-4">
+            <textarea name="comment" placeholder="Bitte gib eine Anmerkung ein" autocomplete="off" class="form-control"
+                id="comment"></textarea>
+        </div>
+    </div>
+
+    <input type="submit" name="save" value="Speichern" class="btn btn-outline-secondary">
+    <input type="submit" name="discard" value="Abbrechen" formnovalidate class="btn btn-outline-secondary">
+</form>
+{% endblock %}

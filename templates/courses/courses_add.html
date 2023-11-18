@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<h1 class="fs-2">
+    Kurse - Hinzufügen
+</h1>
+
+<form action="/kurse/hinzufuegen" method="post">
+    <div class="row mb-3">
+        <label for="course" class="col-sm-1 col-form-label">Kurs</label>
+        <div class="col-sm-4">
+            <input type="text" name="course" placeholder="Bitte gib einen Kurs ein" autofocus required
+                autocomplete="off" class="form-control" id="course">
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label for="comment" class="col-sm-1 col-form-label">Anmerkung</label>
+        <div class="col-sm-4">
+            <textarea name="comment" placeholder="Bitte gib eine Anmerkung ein" autocomplete="off" class="form-control"
+                id="comment"></textarea>
+        </div>
+    </div>
+
+    <input type="submit" name="save" value="Speichern" class="btn btn-outline-secondary">
+    <input type="submit" name="discard" value="Abbrechen" formnovalidate class="btn btn-outline-secondary">
+</form>
+{% endblock %}

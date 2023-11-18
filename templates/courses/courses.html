@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<h1 class="fs-2">
+    Kurse
+</h1>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Kurs</th>
+            <th>Anmerkung</th>
+            <th>Dozierende</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% if courses|length != 0 %}
+        {% for course in courses %}
+        <tr>
+            <td>{{ course.course }}</td>
+            <td>{% if course.comment|length != 0 %}{{ course.comment }}{% else %}-{% endif %}</td>
+            <td>
+                <ul class="list-unstyled">
+                    {% for entry in lecturers_courses %}
+                    {% if entry.course_id == course.course_id %}
+                    <li>{{ entry.last_name }}, {{ entry.first_name }}</li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+            </td>
+            <td>
+                <form action="/kurse" method="post">
+                    <input type="hidden" name="delete" value="{{ course.course_id}}">
+                    <input type="submit" name="delete" value="Löschen" class="btn btn-outline-danger">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td></td>
+        </tr>
+        {% endif %}
+    </tbody>
+</table>
+
+<form action="/kurse" method="post">
+    <input type="submit" name="edit" value="Bearbeiten" class="btn btn-outline-secondary" {% if courses|length==0
+        %}disabled{% endif %}>
+    <input type="submit" name="add" value="Hinzufügen" class="btn btn-outline-secondary">
+</form>
+{% endblock %}

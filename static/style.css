@@ -1,0 +1,50 @@
+main {
+    padding: 1em;
+}
+
+label {
+    min-width: 8em;
+}
+
+input, textarea {
+    max-width: 30em;
+}
+
+textarea {
+    height: 6em;
+    min-width: 20em;
+}
+
+th {
+    white-space: nowrap;
+}
+
+.fs-2 {
+    margin-top: 2em;
+    padding-bottom: 0.5em;
+}
+
+.fs-3 {
+    padding-top: 1em;
+}
+
+.btn.btn-outline-secondary {
+    margin-right: 0.5em;
+}
+
+.col-sm-2.col-form-label {
+    font-weight: bold;
+}
+
+#heading {
+    padding-right: 1em;
+}
+
+#logout {
+    position: fixed;
+    right: 1em;
+}
+
+#extra_button {
+    margin-top: 3em;
+}

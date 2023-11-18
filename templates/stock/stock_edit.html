@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<h1 class="fs-2">
+    Lager - Bearbeiten
+</h1>
+
+<form action="/lager/bearbeiten" method="post">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Material</th>
+                <th>Bestand</th>
+                <th>Meldebestand</th>
+                <th>Bestellnummer</th>
+                <th>Fach</th>
+                <th>Anmerkung</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for material in materials %}
+            <tr>
+                <td>
+                    <input type="text" name="{{ material.material_id }}_material" value="{{ material.material }}"
+                        required class="form-control">
+                </td>
+                <td>
+                    <input type="number" name="{{ material.material_id }}_amount" min="0" value="{{ material.amount }}"
+                        required class="form-control">
+                </td>
+                <td>
+                    <input type="number" name="{{ material.material_id }}_report" min="0" value="{{ material.report }}"
+                        required class="form-control">
+                </td>
+                <td>
+                    <input type="text" name="{{ material.material_id }}_order_number"
+                        value="{{ material.order_number }}" required class="form-control">
+                </td>
+                <td>
+                    <input type="text" name="{{ material.material_id }}_storage_location"
+                        value="{{ material.storage_location }}" required class="form-control">
+                </td>
+                <td>
+                    <textarea name="{{ material.material_id }}_comment"
+                        class="form-control">{{ material.comment }}</textarea>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <input type="submit" name="save" value="Speichern" class="btn btn-outline-secondary">
+    <input type="submit" name="discard" value="Abbrechen" formnovalidate class="btn btn-outline-secondary">
+</form>
+{% endblock %}

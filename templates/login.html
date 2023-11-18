@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<h1 class="fs-2">
+    Login
+</h1>
+
+<form action="/login" method="post">
+    <div class="row mb-3">
+        <label for="user" class="col-sm-1 col-form-label">Nutzer/in</label>
+        <div class="col-sm-4">
+            <input name="user" type="text" placeholder="Bitte gib deinen Nutzernamen ein" autocomplete="off" autofocus
+                required class="form-control">
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label for="password" class="col-sm-1 col-form-label">Passwort</label>
+        <div class="col-sm-4">
+            <input name="password" type="password" placeholder="Bitte gib dein Passwort ein" autocomplete="off" required
+                class="form-control">
+        </div>
+    </div>
+
+    <input type="submit" value="Anmelden" class="btn btn-outline-secondary">
+</form>
+{% endblock %}

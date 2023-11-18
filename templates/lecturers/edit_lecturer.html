@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<h1 class="fs-2">
+    Dozent/in Bearbeiten
+</h1>
+
+<form action="/dozierende/{{ lecturer.last_name }}_{{ lecturer.first_name }}" method="post">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Vorname</th>
+                <th>Nachname</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>
+                    <input type="text" name="first_name" value="{{ lecturer.first_name }}" required
+                        class="form-control">
+                </td>
+                <td>
+                    <input type="text" name="last_name" value="{{ lecturer.last_name }}" required class="form-control">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <input type="submit" name="save" value="Speichern" class="btn btn-outline-secondary">
+    <input type="submit" name="discard" value="Abbrechen" formnovalidate class="btn btn-outline-secondary">
+</form>
+{% endblock %}
