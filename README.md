@@ -1,6 +1,6 @@
 # RPS
 
-RPS steht für "Resourse Planning System" und ist eine Webanwendung, die entwickelt wurde, um Materiallager in Bildungseinrichtungen zu verwalten. Die Anwendung wurde mit Flask, einer Python-Webanwendungs-Framework, erstellt.  
+RPS steht für "Resourse Planning System" und ist eine Webanwendung, die entwickelt wurde, um Materiallager in Bildungseinrichtungen zu verwalten. Die Anwendung wurde mit Flask, einem Python-Webanwendungs-Framework, erstellt.  
 
 ## Funktionen
 
